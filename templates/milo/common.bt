@@ -197,6 +197,7 @@ typedef struct
     float b;
 } Color<read=readColor, bgcolor=get_bgcolor_color>;
 
+
 int get_bgcolor_color(Color& c)
 {
     local int r = (int)(c.r * 255.0);
@@ -244,6 +245,24 @@ string readColor4(Color4& c)
     SPrintf(s, "(%f, %f, %f, %f)", c.r, c.g, c.b, c.a);
     return s;
 }
+
+typedef struct
+{
+    int version; // 0 seems to be the only version
+    Color c1;
+    Color c2;
+    Color c3;
+    Color c4;
+    float lightness;
+    float saturation;
+    float hue;
+    float brightness;
+    float contrast;
+    Color4 level_in_lo;
+    Color4 level_in_hi;
+    Color4 level_out_lo;
+    Color4 level_out_hi;
+} ColorXfm;
 
 // DTB
 typedef struct

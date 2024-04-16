@@ -1,4 +1,6 @@
-// An animated clip of a skeleton playable in milo
+// A ParticleSys object generates, animates, and draws large
+//        numbers of similar sprites. Currently particles are rendered only
+//        as points on the PC.
 // Super: Anim
 // Ext: .part
 // C++ Class: RndParticleSys

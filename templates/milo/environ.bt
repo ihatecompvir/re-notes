@@ -15,19 +15,28 @@
 #include "common.bt"
 #include "draw.bt"
 
+typedef struct
+{
+    uint lights_count;
+    NumString lights[lights_count]<optimize=false>; // Light
+} Lights;
+
 typedef struct (SystemInfo& info, Bool super)
 {
-    int version; // 1 (GH1), 5 (GH2/GH2 360), 9 (TBRB/GDRB)
+    int version; // 1 (GH1), 5 (GH2/GH2 360), 9 (TBRB/GDRB), 15 (RB3/DC1)
 
     if (version > 1) read_metadata(info, super);
     if (version < 3) Draw draw(info, True);
     
-    // Dynamic lights for this environment
-    struct Lights
+    if(version == 15)
     {
-        uint lights_count;
-        NumString lights[lights_count]<optimize=false>; // Light
-    } lights;
+        Lights lights_real;
+        Lights lights_approx;
+    }
+    else
+    {
+        Lights lights;
+    }
 
     Color ambient_color; // Ambient color for this environment
     float ambient_alpha;
@@ -66,11 +75,24 @@ typedef struct (SystemInfo& info, Bool super)
         float right_out;
     }
 
+    if(version > 8)
+    {
+        NumString ambient_fog_owner;
+    }
+
     if (version > 7)
     {
         Bool use_color_adjust;
-        
-        // TODO: RndColorXfm::Load()
+        ColorXfm color_xfm;
+    }
+
+    if(version == 15)
+    {
+        float ao_strength;
+        float intensity_rate;
+        float exposure;
+        float white_point;
+        Bool use_tone_mapping;
     }
 } Environ;
 

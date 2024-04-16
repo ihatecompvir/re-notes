@@ -1,32 +1,31 @@
-// Just a color, used by UI components
-// Super: (None)
-// Ext: .color
-// C++ Class: UIColor
+// a guide used to line up UI elements
+// Super: N/A
+// Ext: guide
+// C++ Class: UIGuide
 
 #ifndef IN_MILO_FILE
     #ifndef STANDALONE_FILE
-        #define STANDALONE_FILE "UIColor"
+        #define STANDALONE_FILE "UIGuide"
     #endif
 #endif
 
-#ifndef OBJECT_UI_COLOR
-#define OBJECT_UI_COLOR
+#ifndef OBJECT_UI_GUIDE
+#define OBJECT_UI_GUIDE
 
 #include "common.bt"
 
 typedef struct (SystemInfo& info, Bool super)
 {
-    int version; // this is such a simple asset that no other versions but 0 seem to exist, but I have not checked anything beyond RB3
-
+    int version; // 1 (RB3)
     read_metadata(info, super);
 
-    Color4 color;
-} UIColor;
-
+    int type;
+    float pos;
+} UIGuide;
 
 #ifdef STANDALONE_FILE
 
-if (STANDALONE_FILE == "UIColor")
+if (STANDALONE_FILE == "UIGuide")
 {
     local int obj_version = guess_version();
     local SystemInfo info;
@@ -41,7 +40,7 @@ if (STANDALONE_FILE == "UIColor")
         info.platform = PS2;
     }
 
-    UIColor ui_color(info, False);
+    UIGuide ui_guide(info, False);
 }
 
 #endif
